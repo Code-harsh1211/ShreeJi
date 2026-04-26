@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shree Ji Electronics — Ahmedabad</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#060a10;
+    --bg2:#0c1220;
+    --bg3:#0f1828;
+    --blue:#00b4ff;
+    --blue2:#0077cc;
+    --orange:#ff6a00;
+    --orange2:#ff9500;
+    --glass:rgba(255,255,255,0.04);
+    --glass-border:rgba(255,255,255,0.08);
+    --text:#e8edf5;
+    --muted:#7a8ba0;
+    --card:rgba(12,20,38,0.9);
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;line-height:1.6}
+  h1,h2,h3,h4{font-family:'Syne',sans-serif}
+
+  /* LOADER */
+  #loader{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s ease}
+  #loader.hidden{opacity:0;pointer-events:none}
+  .loader-inner{text-align:center}
+  .loader-ring{width:64px;height:64px;border:2px solid rgba(0,180,255,0.15);border-top-color:var(--blue);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 20px}
+  .loader-text{font-family:'Syne',sans-serif;font-size:13px;letter-spacing:4px;color:var(--muted);text-transform:uppercase}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* NAVBAR */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;transition:all 0.4s ease}
+  nav.scrolled{background:rgba(6,10,16,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border)}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;letter-spacing:-0.5px}
+  .logo span{display:block;font-size:10px;letter-spacing:3px;font-weight:400;color:var(--muted);-webkit-text-fill-color:var(--muted)}
+  .nav-links{display:flex;align-items:center;gap:36px}
+  .nav-links a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:400;letter-spacing:0.3px;transition:color 0.2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff!important;padding:10px 24px;border-radius:8px;font-weight:500!important;transition:all 0.3s!important}
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,180,255,0.3)!important}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s}
+  .mobile-menu{display:none;position:fixed;inset:0;background:var(--bg);z-index:99;padding-top:80px;padding-left:8%;flex-direction:column;gap:32px}
+  .mobile-menu a{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--muted);text-decoration:none;transition:color 0.2s}
+  .mobile-menu a:hover{color:var(--text)}
+  .mobile-menu.open{display:flex}
+
+  /* HERO */
+  #hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,180,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,180,255,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black,transparent)}
+  .hero-glow1{position:absolute;top:-200px;right:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(0,120,255,0.12),transparent 70%);pointer-events:none}
+  .hero-glow2{position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,106,0,0.08),transparent 70%);pointer-events:none}
+  .hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:80px}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,180,255,0.08);border:1px solid rgba(0,180,255,0.2);padding:6px 16px;border-radius:100px;font-size:12px;color:var(--blue);letter-spacing:1px;text-transform:uppercase;margin-bottom:28px}
+  .hero-badge-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:pulse 2s ease infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+  h1.hero-title{font-size:clamp(36px,5vw,62px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:20px}
+  .hero-title .accent-blue{color:var(--blue)}
+  .hero-title .accent-orange{color:var(--orange2)}
+  .hero-sub{font-size:16px;color:var(--muted);line-height:1.7;max-width:480px;margin-bottom:40px}
+  .hero-sub strong{color:var(--text);font-weight:500}
+  .hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+  .btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff;padding:15px 32px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:600;font-size:15px;text-decoration:none;transition:all 0.3s;border:none;cursor:pointer;letter-spacing:0.3px}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,180,255,0.35)}
+  .btn-secondary{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--text);padding:15px 32px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--glass-border);transition:all 0.3s}
+  .btn-secondary:hover{background:var(--glass);border-color:rgba(255,255,255,0.15);transform:translateY(-2px)}
+  .hero-stats{display:flex;gap:32px;margin-top:48px;padding-top:40px;border-top:1px solid var(--glass-border)}
+  .stat{text-align:left}
+  .stat-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;background:linear-gradient(135deg,#fff,var(--muted));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .stat-label{font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:0.5px}
+
+  /* CIRCUIT ILLUSTRATION */
+  .hero-visual{position:relative}
+  .circuit-wrap{position:relative;width:100%;aspect-ratio:1;max-width:480px;margin:0 auto}
+  .circuit-svg{width:100%;height:100%;opacity:0.9}
+
+  /* SECTION COMMONS */
+  section{padding:100px 5%}
+  .section-inner{max-width:1200px;margin:0 auto}
+  .section-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:500;margin-bottom:14px}
+  .section-title{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-1px;margin-bottom:16px}
+  .section-sub{font-size:16px;color:var(--muted);max-width:520px;line-height:1.7}
+
+  /* SERVICES */
+  #services{background:var(--bg2)}
+  .services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:24px;flex-wrap:wrap}
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .service-card{background:var(--card);border:1px solid var(--glass-border);border-radius:20px;padding:32px;transition:all 0.35s;cursor:default;position:relative;overflow:hidden}
+  .service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,180,255,0.06),transparent);opacity:0;transition:opacity 0.35s;border-radius:20px}
+  .service-card:hover{transform:translateY(-6px);border-color:rgba(0,180,255,0.25);box-shadow:0 24px 60px rgba(0,0,0,0.4),0 0 0 1px rgba(0,180,255,0.1)}
+  .service-card:hover::before{opacity:1}
+  .service-card.featured{border-color:rgba(255,106,0,0.3)}
+  .service-card.featured::before{background:linear-gradient(135deg,rgba(255,106,0,0.08),transparent)}
+  .service-card.featured:hover{border-color:rgba(255,106,0,0.5);box-shadow:0 24px 60px rgba(0,0,0,0.4),0 0 0 1px rgba(255,106,0,0.15)}
+  .service-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px}
+  .icon-blue{background:rgba(0,180,255,0.1)}
+  .icon-orange{background:rgba(255,106,0,0.1)}
+  .service-card h3{font-size:17px;font-weight:700;margin-bottom:10px;letter-spacing:-0.3px}
+  .service-card p{font-size:14px;color:var(--muted);line-height:1.65}
+  .service-tag{display:inline-block;background:rgba(255,106,0,0.12);color:var(--orange2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:100px;margin-bottom:12px;font-weight:500}
+
+  /* FORM SECTION */
+  #book{background:var(--bg)}
+  .book-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
+  .book-info{position:sticky;top:100px}
+  .book-info h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-0.8px;margin-bottom:16px;line-height:1.15}
+  .book-info p{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:32px}
+  .info-points{display:flex;flex-direction:column;gap:16px}
+  .info-point{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted)}
+  .info-point-icon{width:36px;height:36px;border-radius:10px;background:rgba(0,180,255,0.08);border:1px solid rgba(0,180,255,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+  .form-card{background:var(--card);border:1px solid var(--glass-border);border-radius:24px;padding:40px;backdrop-filter:blur(10px)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .form-group{margin-bottom:20px}
+  .form-group label{display:block;font-size:12px;letter-spacing:0.8px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:500}
+  .form-group input,.form-group select,.form-group textarea{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:12px;padding:14px 18px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:all 0.25s;-webkit-appearance:none}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(122,139,160,0.6)}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(0,180,255,0.4);background:rgba(0,180,255,0.04);box-shadow:0 0 0 3px rgba(0,180,255,0.08)}
+  .form-group select option{background:var(--bg2);color:var(--text)}
+  .form-group textarea{resize:vertical;min-height:100px;line-height:1.6}
+  .form-error{display:none;font-size:11px;color:#ff5f5f;margin-top:5px}
+  .form-group.error input,.form-group.error select,.form-group.error textarea{border-color:rgba(255,95,95,0.5)}
+  .form-group.error .form-error{display:block}
+  .btn-submit{width:100%;background:linear-gradient(135deg,var(--orange),var(--orange2));color:#fff;padding:17px;border-radius:12px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;border:none;cursor:pointer;transition:all 0.3s;letter-spacing:0.5px;margin-top:8px}
+  .btn-submit:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(255,106,0,0.35)}
+  .success-msg{display:none;text-align:center;padding:40px 20px}
+  .success-msg.show{display:block}
+  .form-fields.hidden{display:none}
+  .success-icon{width:72px;height:72px;border-radius:50%;background:rgba(0,220,130,0.1);border:2px solid rgba(0,220,130,0.3);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 20px}
+  .success-msg h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:10px}
+  .success-msg p{color:var(--muted);font-size:14px;line-height:1.7}
+
+  /* WHY US */
+  #why{background:var(--bg2)}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:56px}
+  .why-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:20px;padding:28px 24px;text-align:center;transition:all 0.3s}
+  .why-card:hover{background:rgba(0,180,255,0.05);border-color:rgba(0,180,255,0.2);transform:translateY(-4px)}
+  .why-icon{font-size:32px;margin-bottom:16px;display:block}
+  .why-card h3{font-size:15px;font-weight:700;margin-bottom:8px}
+  .why-card p{font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* TESTIMONIALS */
+  #testimonials{background:var(--bg)}
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:56px}
+  .testi-card{background:var(--card);border:1px solid var(--glass-border);border-radius:20px;padding:28px;transition:all 0.3s}
+  .testi-card:hover{border-color:rgba(0,180,255,0.15);transform:translateY(-3px)}
+  .stars{font-size:14px;margin-bottom:14px;letter-spacing:2px}
+  .testi-text{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:20px;font-style:italic}
+  .testi-author{display:flex;align-items:center;gap:12px}
+  .avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;flex-shrink:0}
+  .av-blue{background:rgba(0,180,255,0.15);color:var(--blue)}
+  .av-orange{background:rgba(255,106,0,0.15);color:var(--orange2)}
+  .av-green{background:rgba(0,220,130,0.12);color:#00dc82}
+  .testi-name{font-size:13px;font-weight:600}
+  .testi-loc{font-size:11px;color:var(--muted);letter-spacing:0.5px}
+
+  /* CONTACT */
+  #contact{background:var(--bg2)}
+  .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .contact-info h2{font-size:clamp(26px,3.5vw,40px);font-weight:800;letter-spacing:-0.8px;margin-bottom:16px;line-height:1.15}
+  .contact-info p{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:40px}
+  .contact-cards{display:flex;flex-direction:column;gap:16px}
+  .contact-card{background:var(--card);border:1px solid var(--glass-border);border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text);transition:all 0.3s}
+  .contact-card:hover{border-color:rgba(0,180,255,0.25);transform:translateX(4px);background:rgba(0,180,255,0.04)}
+  .contact-card-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+  .ci-blue{background:rgba(0,180,255,0.1)}
+  .ci-green{background:rgba(37,211,102,0.1)}
+  .ci-orange{background:rgba(255,106,0,0.1)}
+  .contact-card-label{font-size:11px;color:var(--muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:3px}
+  .contact-card-value{font-size:14px;font-weight:500}
+  .map-placeholder{background:var(--card);border:1px solid var(--glass-border);border-radius:20px;overflow:hidden;height:320px;position:relative;display:flex;align-items:center;justify-content:center}
+  .map-pin-wrap{text-align:center}
+  .map-pin{font-size:48px;animation:bounce 2s ease infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .map-label{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-top:12px}
+  .map-sub{font-size:12px;color:var(--muted);margin-top:4px}
+  .map-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,180,255,0.05),transparent 70%)}
+
+  /* FOOTER */
+  footer{background:var(--bg);border-top:1px solid var(--glass-border);padding:60px 5% 32px}
+  .footer-inner{max-width:1200px;margin:0 auto}
+  .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+  .footer-logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+  .footer-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:260px}
+  .footer-col h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-weight:500}
+  .footer-col a{display:block;font-size:13px;color:rgba(122,139,160,0.8);text-decoration:none;margin-bottom:12px;transition:color 0.2s}
+  .footer-col a:hover{color:var(--text)}
+  .footer-bottom{border-top:1px solid var(--glass-border);padding-top:28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap;gap:16px}
+  .footer-copy{font-size:12px;color:var(--muted)}
+  .footer-tagline{font-size:12px;color:rgba(122,139,160,0.5)}
+
+  /* FLOATING WHATSAPP */
+  .whatsapp-float{position:fixed;bottom:32px;right:32px;z-index:200;width:60px;height:60px;background:linear-gradient(135deg,#25d366,#128c7e);border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,0.4);transition:all 0.3s;animation:floatIn 0.5s ease 2s backwards}
+  .whatsapp-float:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 16px 48px rgba(37,211,102,0.5)}
+  @keyframes floatIn{from{opacity:0;transform:scale(0.5) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+  .whatsapp-float svg{width:30px;height:30px;fill:#fff}
+  .wa-tooltip{position:absolute;right:70px;background:rgba(6,10,16,0.95);backdrop-filter:blur(10px);border:1px solid var(--glass-border);padding:8px 16px;border-radius:10px;font-size:12px;white-space:nowrap;opacity:0;transform:translateX(10px);transition:all 0.25s;pointer-events:none}
+  .whatsapp-float:hover .wa-tooltip{opacity:1;transform:translateX(0)}
+
+  /* SCROLL ANIMATIONS */
+  .fade-up{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .fade-up.visible{opacity:1;transform:translateY(0)}
+  .fade-up-d1{transition-delay:0.1s}
+  .fade-up-d2{transition-delay:0.2s}
+  .fade-up-d3{transition-delay:0.3s}
+  .fade-up-d4{transition-delay:0.4s}
+  .fade-up-d5{transition-delay:0.5s}
+
+  /* DIVIDER */
+  .divider-line{height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);margin:0}
+
+  @media(max-width:900px){
+    .hero-content{grid-template-columns:1fr;gap:48px;text-align:center}
+    .hero-sub{margin:0 auto 40px}
+    .hero-btns{justify-content:center}
+    .hero-stats{justify-content:center}
+    .book-layout{grid-template-columns:1fr;gap:48px}
+    .book-info{position:static}
+    .contact-layout{grid-template-columns:1fr;gap:48px}
+    .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+    .form-row{grid-template-columns:1fr}
+    .services-header{flex-direction:column;align-items:flex-start}
+    .circuit-wrap{max-width:280px}
+    .hero-visual{order:-1}
+  }
+  @media(max-width:640px){
+    .nav-links{display:none}
+    .hamburger{display:flex}
+    section{padding:70px 5%}
+    .footer-top{grid-template-columns:1fr;gap:28px}
+    .footer-bottom{flex-direction:column;text-align:center}
+    .form-card{padding:24px}
+    .hero-stats{flex-wrap:wrap;gap:24px;justify-content:flex-start}
+    .hero-content{text-align:left}
+    .hero-btns{justify-content:flex-start}
+    .hero-sub{margin:0 0 40px}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-ring"></div>
+    <div class="loader-text">Shree Ji Electronics</div>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919173057222?text=Hello%2C%20I%20need%20electrical%20repair%20service" class="whatsapp-float" target="_blank" rel="noopener">
+  <span class="wa-tooltip">Chat on WhatsApp</span>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">Shree Ji Electronics<span>Ahmedabad, Gujarat</span></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#book">Book Service</a>
+      <a href="#why">Why Us</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="tel:+919173057222" class="nav-cta">📞 Call Now</a>
+    </div>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#book" onclick="closeMenu()">Book Service</a>
+  <a href="#why" onclick="closeMenu()">Why Us</a>
+  <a href="#testimonials" onclick="closeMenu()">Reviews</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="tel:+919173057222" style="color:#00b4ff">📞 +91 91730 57222</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="hero-glow1"></div>
+    <div class="hero-glow2"></div>
+  </div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge fade-up">
+        <span class="hero-badge-dot"></span>
+        Serving Ahmedabad Since 2010
+      </div>
+      <h1 class="hero-title fade-up fade-up-d1">
+        Fast &amp; Reliable<br>
+        <span class="accent-blue">Electrical Repairs</span><br>
+        at Your <span class="accent-orange">Doorstep</span>
+      </h1>
+      <p class="hero-sub fade-up fade-up-d2">
+        Expert repair for <strong>AC, Fridge, Washing Machine, PCB</strong>, <strong>Electric Scooter</strong> &amp; <strong>Activa Electrical</strong> — fast diagnostics, guaranteed service, affordable pricing.
+      </p>
+      <div class="hero-btns fade-up fade-up-d3">
+        <a href="#book" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Book Service
+        </a>
+        <a href="tel:+919173057222" class="btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Call Now
+        </a>
+      </div>
+      <div class="hero-stats fade-up fade-up-d4">
+        <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Happy Customers</div></div>
+        <div class="stat"><div class="stat-num">24hr</div><div class="stat-label">Quick Response</div></div>
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
+      </div>
+    </div>
+    <div class="hero-visual fade-up fade-up-d2">
+      <div class="circuit-wrap">
+        <svg class="circuit-svg" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(0,80,160,0.15)"/>
+              <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+            </radialGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="glow2"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <circle cx="210" cy="210" r="200" fill="url(#bgGrad)"/>
+          <circle cx="210" cy="210" r="180" fill="none" stroke="rgba(0,180,255,0.06)" stroke-width="1"/>
+          <circle cx="210" cy="210" r="140" fill="none" stroke="rgba(0,180,255,0.08)" stroke-width="1"/>
+          <circle cx="210" cy="210" r="100" fill="none" stroke="rgba(0,180,255,0.1)" stroke-width="1"/>
+          <!-- Circuit lines -->
+          <g stroke="rgba(0,180,255,0.25)" stroke-width="1.5" fill="none">
+            <line x1="210" y1="30" x2="210" y2="80"/>
+            <line x1="210" y1="340" x2="210" y2="390"/>
+            <line x1="30" y1="210" x2="80" y2="210"/>
+            <line x1="340" y1="210" x2="390" y2="210"/>
+            <line x1="65" y1="65" x2="100" y2="100"/>
+            <line x1="355" y1="65" x2="320" y2="100"/>
+            <line x1="65" y1="355" x2="100" y2="320"/>
+            <line x1="355" y1="355" x2="320" y2="320"/>
+            <!-- inner paths -->
+            <polyline points="130,140 160,140 160,120 200,120"/>
+            <polyline points="290,140 260,140 260,120 220,120"/>
+            <polyline points="130,280 160,280 160,300 200,300"/>
+            <polyline points="290,280 260,280 260,300 220,300"/>
+            <line x1="140" y1="175" x2="140" y2="245"/>
+            <line x1="280" y1="175" x2="280" y2="245"/>
+          </g>
+          <!-- Animated pulse lines -->
+          <g filter="url(#glow)">
+            <line x1="210" y1="30" x2="210" y2="80" stroke="rgba(0,180,255,0.7)" stroke-width="1.5">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+            </line>
+            <line x1="340" y1="210" x2="390" y2="210" stroke="rgba(255,150,0,0.7)" stroke-width="1.5">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
+            </line>
+          </g>
+          <!-- Central device -->
+          <rect x="155" y="155" width="110" height="110" rx="16" fill="rgba(0,20,50,0.9)" stroke="rgba(0,180,255,0.4)" stroke-width="1.5" filter="url(#glow)"/>
+          <rect x="163" y="163" width="94" height="94" rx="12" fill="rgba(0,30,70,0.6)" stroke="rgba(0,180,255,0.15)" stroke-width="1"/>
+          <!-- Lightning bolt -->
+          <path d="M218 178 L205 210 L215 210 L202 242 L225 206 L214 206 Z" fill="rgba(0,180,255,0.9)" filter="url(#glow2)">
+            <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite"/>
+          </path>
+          <!-- Corner nodes -->
+          <circle cx="210" cy="30" r="5" fill="var(--blue)" filter="url(#glow)"><animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite"/></circle>
+          <circle cx="210" cy="390" r="5" fill="rgba(0,180,255,0.6)" filter="url(#glow)"><animate attributeName="r" values="4;6;4" dur="2.3s" begin="0.3s" repeatCount="indefinite"/></circle>
+          <circle cx="30" cy="210" r="5" fill="rgba(255,150,0,0.8)" filter="url(#glow)"><animate attributeName="r" values="4;6;4" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></circle>
+          <circle cx="390" cy="210" r="5" fill="rgba(255,150,0,0.8)" filter="url(#glow)"><animate attributeName="r" values="4;6;4" dur="2.1s" begin="0.9s" repeatCount="indefinite"/></circle>
+          <!-- Dots on circuit -->
+          <circle cx="160" cy="140" r="3" fill="rgba(0,180,255,0.5)"/>
+          <circle cx="260" cy="140" r="3" fill="rgba(0,180,255,0.5)"/>
+          <circle cx="160" cy="280" r="3" fill="rgba(255,150,0,0.5)"/>
+          <circle cx="260" cy="280" r="3" fill="rgba(255,150,0,0.5)"/>
+          <circle cx="140" cy="175" r="3" fill="rgba(0,180,255,0.4)"/>
+          <circle cx="140" cy="245" r="3" fill="rgba(0,180,255,0.4)"/>
+          <circle cx="280" cy="175" r="3" fill="rgba(255,150,0,0.4)"/>
+          <circle cx="280" cy="245" r="3" fill="rgba(255,150,0,0.4)"/>
+          <!-- Orbiting ring -->
+          <circle cx="210" cy="210" r="160" fill="none" stroke="rgba(0,180,255,0.12)" stroke-width="1" stroke-dasharray="8 12">
+            <animateTransform attributeName="transform" type="rotate" from="0 210 210" to="360 210 210" dur="20s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="210" cy="210" r="160" fill="none" stroke="rgba(255,150,0,0.08)" stroke-width="1" stroke-dasharray="4 20">
+            <animateTransform attributeName="transform" type="rotate" from="360 210 210" to="0 210 210" dur="15s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div>
+        <div class="section-tag fade-up">What We Fix</div>
+        <h2 class="section-title fade-up fade-up-d1">Our <span style="color:var(--blue)">Services</span></h2>
+        <p class="section-sub fade-up fade-up-d2">Expert repair and maintenance for all major home appliances and electrical equipment across Ahmedabad.</p>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon icon-blue">❄️</div>
+        <h3>Air Conditioner Repair</h3>
+        <p>Complete AC servicing — inverter &amp; non-inverter units. Gas refilling, compressor, PCB, cooling issues resolved.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d1">
+        <div class="service-icon icon-blue">🧊</div>
+        <h3>Refrigerator Repair</h3>
+        <p>Fridge not cooling? Compressor fault, thermostat, frost issues — all models &amp; brands repaired at your home.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d2">
+        <div class="service-icon icon-blue">🫧</div>
+        <h3>Washing Machine Repair</h3>
+        <p>Front load &amp; top load repair. Motor, drum, PCB, inlet valve and all electrical faults diagnosed and fixed fast.</p>
+      </div>
+      <div class="service-card featured fade-up fade-up-d3">
+        <div class="service-tag">⭐ Specialty</div>
+        <div class="service-icon icon-orange">🔌</div>
+        <h3>PCB Repair</h3>
+        <p>Our core specialty. Circuit board diagnosis, SMD component replacement, burnt PCB restoration for all appliances.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d4">
+        <div class="service-icon icon-orange">⚡</div>
+        <h3>Electric Scooter Repair</h3>
+        <p>Battery management, motor controller, charging issues &amp; all electrical faults in electric two-wheelers.</p>
+      </div>
+      <div class="service-card fade-up fade-up-d5">
+        <div class="service-icon icon-orange">🛵</div>
+        <h3>Activa Electrical Repair</h3>
+        <p>CDI, wiring harness, starter motor, horn, lights &amp; all electrical problems in Honda Activa &amp; scooters.</p>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon icon-blue">🔧</div>
+        <h3>General Electrical Work</h3>
+        <p>Wiring, switchboard repair, MCB, fan installation, inverter setup &amp; all home electrical work in Ahmedabad.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- BOOK / COMPLAINT FORM -->
+<section id="book">
+  <div class="section-inner">
+    <div class="book-layout">
+      <div class="book-info">
+        <div class="section-tag fade-up">Service Request</div>
+        <h2 class="fade-up fade-up-d1">Book a <span style="color:var(--orange2)">Home Visit</span><br>in Minutes</h2>
+        <p class="fade-up fade-up-d2">Fill out the form and our technician will contact you within 30 minutes to confirm your appointment.</p>
+        <div class="info-points">
+          <div class="info-point fade-up fade-up-d2"><div class="info-point-icon">⏱</div>30-min response guarantee</div>
+          <div class="info-point fade-up fade-up-d3"><div class="info-point-icon">🏠</div>Doorstep service across Ahmedabad</div>
+          <div class="info-point fade-up fade-up-d3"><div class="info-point-icon">💰</div>Transparent, affordable pricing</div>
+          <div class="info-point fade-up fade-up-d4"><div class="info-point-icon">✅</div>No fix, no charge guarantee</div>
+        </div>
+      </div>
+      <div class="form-card fade-up fade-up-d1">
+        <div class="form-fields" id="formFields">
+          <div class="form-row">
+            <div class="form-group" id="grp-name">
+              <label>Full Name</label>
+              <input type="text" id="f-name" placeholder="Your name">
+              <div class="form-error">Please enter your name</div>
+            </div>
+            <div class="form-group" id="grp-phone">
+              <label>Phone Number</label>
+              <input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX">
+              <div class="form-error">Enter a valid 10-digit number</div>
+            </div>
+          </div>
+          <div class="form-group" id="grp-address">
+            <label>Address</label>
+            <input type="text" id="f-address" placeholder="Your full address in Ahmedabad">
+            <div class="form-error">Please enter your address</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" id="grp-appliance">
+              <label>Appliance Type</label>
+              <select id="f-appliance">
+                <option value="">Select appliance</option>
+                <option>Air Conditioner</option>
+                <option>Refrigerator / Fridge</option>
+                <option>Washing Machine</option>
+                <option>PCB / Circuit Board</option>
+                <option>Electric Scooter</option>
+                <option>Honda Activa / Scooter</option>
+                <option>General Electrical</option>
+                <option>Other</option>
+              </select>
+              <div class="form-error">Please select an appliance</div>
+            </div>
+            <div class="form-group" id="grp-time">
+              <label>Preferred Visit Time</label>
+              <select id="f-time">
+                <option value="">Select time slot</option>
+                <option>Morning (8 AM – 11 AM)</option>
+                <option>Afternoon (11 AM – 2 PM)</option>
+                <option>Evening (2 PM – 6 PM)</option>
+                <option>Urgent / ASAP</option>
+              </select>
+              <div class="form-error">Please select a time</div>
+            </div>
+          </div>
+          <div class="form-group" id="grp-issue">
+            <label>Describe the Issue</label>
+            <textarea id="f-issue" placeholder="Briefly describe the problem you're facing..."></textarea>
+            <div class="form-error">Please describe the issue</div>
+          </div>
+          <button class="btn-submit" onclick="submitForm()">Submit Service Request →</button>
+        </div>
+        <div class="success-msg" id="successMsg">
+          <div class="success-icon">✓</div>
+          <h3>Request Received!</h3>
+          <p>Thank you! Our technician will call you within <strong style="color:var(--blue)">30 minutes</strong> to confirm your appointment.</p>
+          <p style="margin-top:12px">Need faster response? <a href="https://wa.me/919173057222" target="_blank" style="color:var(--orange2)">WhatsApp us directly</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-inner">
+    <div style="text-align:center;max-width:560px;margin:0 auto">
+      <div class="section-tag fade-up">Why Choose Us</div>
+      <h2 class="section-title fade-up fade-up-d1">Trusted by Hundreds<br>Across <span style="color:var(--blue)">Ahmedabad</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up"><span class="why-icon">⚡</span><h3>Quick Service</h3><p>Same-day service available. We arrive within 2–4 hours of booking confirmation.</p></div>
+      <div class="why-card fade-up fade-up-d1"><span class="why-icon">💸</span><h3>Affordable Pricing</h3><p>Transparent quotes before we start. No hidden charges. Best rates in Ahmedabad.</p></div>
+      <div class="why-card fade-up fade-up-d2"><span class="why-icon">🎓</span><h3>Expert Technician</h3><p>10+ years experience. Certified repair specialist for all major appliance brands.</p></div>
+      <div class="why-card fade-up fade-up-d3"><span class="why-icon">🏠</span><h3>Doorstep Service</h3><p>We come to you. No need to carry heavy appliances — we repair at your home.</p></div>
+      <div class="why-card fade-up fade-up-d4"><span class="why-icon">🛡</span><h3>Service Warranty</h3><p>All repairs backed by a warranty. If the same issue recurs, we fix it free.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-inner">
+    <div style="text-align:center;max-width:560px;margin:0 auto">
+      <div class="section-tag fade-up">Customer Reviews</div>
+      <h2 class="section-title fade-up fade-up-d1">What People<br><span style="color:var(--orange2)">Say About Us</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"My AC was leaking and not cooling at all. They came within 2 hours, fixed the PCB and gas refilling. Very professional and reasonable price. Highly recommended!"</p>
+        <div class="testi-author"><div class="avatar av-blue">RK</div><div><div class="testi-name">Rahul Kothari</div><div class="testi-loc">Satellite, Ahmedabad</div></div></div>
+      </div>
+      <div class="testi-card fade-up fade-up-d1">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"My washing machine drum was not spinning. Called Shree Ji in the morning, they came by noon and had it running by evening. Excellent service, very trustworthy."</p>
+        <div class="testi-author"><div class="avatar av-orange">PM</div><div><div class="testi-name">Priya Mehta</div><div class="testi-loc">Navrangpura, Ahmedabad</div></div></div>
+      </div>
+      <div class="testi-card fade-up fade-up-d2">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"PCB repair specialist is rare to find. They fixed my fridge PCB which others said needed replacement. Saved me thousands. Very skilled and honest technician."</p>
+        <div class="testi-author"><div class="avatar av-green">DS</div><div><div class="testi-name">Devang Shah</div><div class="testi-loc">Bopal, Ahmedabad</div></div></div>
+      </div>
+      <div class="testi-card fade-up fade-up-d3">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"My electric scooter was completely dead. They diagnosed a battery controller issue and fixed it on the same day. Great knowledge of EVs. Will call again!"</p>
+        <div class="testi-author"><div class="avatar av-blue">AJ</div><div><div class="testi-name">Ankit Joshi</div><div class="testi-loc">Maninagar, Ahmedabad</div></div></div>
+      </div>
+      <div class="testi-card fade-up fade-up-d4">
+        <div class="stars">★★★★★</div>
+        <p class="testi-text">"Very happy with the Activa electrical repair. Wiring was completely burnt, they rewired it perfectly. Affordable price and gave 30 days warranty. Recommended to all my friends!"</p>
+        <div class="testi-author"><div class="avatar av-orange">NP</div><div><div class="testi-name">Neha Patel</div><div class="testi-loc">Chandkheda, Ahmedabad</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-layout">
+      <div class="contact-info">
+        <div class="section-tag fade-up">Get In Touch</div>
+        <h2 class="fade-up fade-up-d1">Let's Fix It<br><span style="color:var(--blue)">Right Now</span></h2>
+        <p class="fade-up fade-up-d2">Call us, WhatsApp us, or book online. We're available every day for your electrical emergencies.</p>
+        <div class="contact-cards">
+          <a href="tel:+919173057222" class="contact-card fade-up fade-up-d2">
+            <div class="contact-card-icon ci-blue">📞</div>
+            <div><div class="contact-card-label">Call Directly</div><div class="contact-card-value">+91 91730 57222</div></div>
+          </a>
+          <a href="https://wa.me/919173057222?text=Hello%2C%20I%20need%20repair%20service" target="_blank" class="contact-card fade-up fade-up-d3">
+            <div class="contact-card-icon ci-green">💬</div>
+            <div><div class="contact-card-label">WhatsApp</div><div class="contact-card-value">Message Us Instantly</div></div>
+          </a>
+          <div class="contact-card fade-up fade-up-d4" style="cursor:default">
+            <div class="contact-card-icon ci-orange">📍</div>
+            <div><div class="contact-card-label">Location</div><div class="contact-card-value">Ahmedabad, Gujarat, India</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-up fade-up-d2">
+        <div class="map-placeholder">
+          <div class="map-bg"></div>
+          <div class="map-pin-wrap">
+            <div class="map-pin">📍</div>
+            <div class="map-label">Shree Ji Electronics</div>
+            <div class="map-sub">Ahmedabad, Gujarat — 380001</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:12px">
+          <a href="https://wa.me/919173057222" target="_blank" class="btn-primary" style="flex:1;justify-content:center">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp Us
+          </a>
+          <a href="tel:+919173057222" class="btn-secondary" style="flex:1;justify-content:center">📞 Call Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Shree Ji Electronics</div>
+        <p class="footer-desc">Your trusted electrical repair partner in Ahmedabad. Fast, reliable, and affordable service at your doorstep.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#services">AC Repair</a>
+        <a href="#services">Fridge Repair</a>
+        <a href="#services">Washing Machine</a>
+        <a href="#services">PCB Repair</a>
+        <a href="#services">Electric Scooter</a>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="#hero">Home</a>
+        <a href="#book">Book Service</a>
+        <a href="#why">Why Us</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+919173057222">+91 91730 57222</a>
+        <a href="https://wa.me/919173057222" target="_blank">WhatsApp Us</a>
+        <a href="#contact">Ahmedabad, Gujarat</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Shree Ji Electronics. All rights reserved.</p>
+      <p class="footer-tagline">Made with ⚡ in Ahmedabad, Gujarat</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// LOADER
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loader').classList.add('hidden');
+  },1200);
+});
+
+// NAVBAR SCROLL
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>60);
+});
+
+// MOBILE MENU
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// SCROLL ANIMATIONS
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)e.target.classList.add('visible');
+  });
+},{threshold:0.12});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// FORM VALIDATION & SUBMIT
+function validateField(id,grpId,validator){
+  const val=document.getElementById(id).value.trim();
+  const grp=document.getElementById(grpId);
+  const ok=validator(val);
+  grp.classList.toggle('error',!ok);
+  return ok;
+}
+function submitForm(){
+  const n=validateField('f-name','grp-name',v=>v.length>1);
+  const p=validateField('f-phone','grp-phone',v=>/^[6-9]\d{9}$/.test(v.replace(/[\s\-+]/g,'')));
+  const a=validateField('f-address','grp-address',v=>v.length>5);
+  const ap=validateField('f-appliance','grp-appliance',v=>v!=='');
+  const t=validateField('f-time','grp-time',v=>v!=='');
+  const i=validateField('f-issue','grp-issue',v=>v.length>3);
+  if(n&&p&&a&&ap&&t&&i){
+    document.getElementById('formFields').classList.add('hidden');
+    document.getElementById('successMsg').classList.add('show');
+  }
+}
+</script>
+</body>
+</html>
